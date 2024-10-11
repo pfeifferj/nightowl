@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: number-station
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: number-station
+  template:
+    metadata:
+      labels:
+        app: number-station
+    spec:
+      containers:
+        - name: number-station
+          image: quay.io/pfeifferj/nightowl:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: TWILIO_ACCOUNT_SID
+              valueFrom:
+                secretKeyRef:
+                  name: twilio-secret
+                  key: TWILIO_ACCOUNT_SID
+            - name: TWILIO_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: twilio-secret
+                  key: TWILIO_AUTH_TOKEN
+            - name: TWILIO_FROM_NUMBER
+              valueFrom:
+                secretKeyRef:
+                  name: twilio-secret
+                  key: TWILIO_FROM_NUMBER
+      restartPolicy: Always

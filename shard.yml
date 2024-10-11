@@ -1,0 +1,9 @@
+name: number_station
+version: 0.1.0
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  twilio:
+    github: cyangle/twilio
+    version: "~> 2.0.1"
